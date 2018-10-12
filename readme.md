@@ -1,6 +1,6 @@
-###hduoj自动AC
+### hduoj自动AC
 ---
-######开始 
+###### 开始 
 > 使用vi commitCode.py 修改文件
 > 改cookie和code类中query字典的user为你的个人用户名
 >
