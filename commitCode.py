@@ -2,7 +2,7 @@ import re
 import requests
 
 headers = {  # hdu用
-    "Cookie": "",  # 改cookie
+    "Cookie": "浏览器的cookie信息",  # 改cookie
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
 }
 
@@ -18,7 +18,7 @@ class code:
     queryData = {
         'first': '',
         'pid': 1028,
-        'user': '',
+        'user': '杭电oj的用户名',
         'lang': 1,
         'status': 5
     }
