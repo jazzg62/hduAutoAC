@@ -6,6 +6,7 @@ import threading
 totalProblemN = 6447
 thread_lock = threading.BoundedSemaphore(value=3)  # 多线程提交代码
 
+
 def schedule(pid):
     for i in getCode(pid):
         x = code(pid, 0, i)
@@ -14,7 +15,7 @@ def schedule(pid):
             break
         else:
             x.submitCode()
-            time.sleep(30)
+            time.sleep(45)
     thread_lock.release()
 
 

@@ -18,23 +18,30 @@ def getCode(pid):  # 给出一个题目的id，获取其中的代码
 
 def getPageLink(url):  # 输入一个搜索结果url，返回结果前10文章的url 列表
     # print(url)
-    r = requests.get(url=url, headers=headers)
-    pattern = r'<dd class="search-link"><a href="([\s\S]*?)"'
-    return re.findall(pattern, r.text)
+    try:
+        r = requests.get(url=url, headers=headers)
+        pattern = r'<dd class="search-link"><a href="([\s\S]*?)"'
+        return re.findall(pattern, r.text)
+    except:
+        getPageLink(url)
 
 
 def parserCodePage(url):  # 给出一个博客文章的地址，返回该地址中的cpp代码段
-    r = requests.get(url, headers=headers)
-
-    pattern = r'<code class="language-cpp">([\s\S]*?)</code>'
     try:
+        r = requests.get(url, headers=headers)
+        pattern = r'<code class="language-cpp">([\s\S]*?)</code>'
+
+
         buf = re.findall(pattern, r.text)[-1]
         buf = buf.replace('&lt;', '<')
         buf = buf.replace('&gt;', '>')
         buf = buf.replace('&amp;', '&')
-        return buf
+        if buf:
+            return buf
     except:
         pass
+
+
 
 
 def main():

@@ -2,7 +2,7 @@ import re
 import requests
 
 headers = {  # hdu用
-    "Cookie": "浏览器的cookie信息",  # 改cookie
+    "Cookie": "",  # 改cookie
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
 }
 
@@ -18,7 +18,7 @@ class code:
     queryData = {
         'first': '',
         'pid': 1028,
-        'user': '杭电oj的用户名',
+        'user': 'user',  # 改为用户名
         'lang': 1,
         'status': 5
     }
@@ -43,22 +43,16 @@ class code:
 
     def isAccepted(self):
         url = 'http://acm.hdu.edu.cn/status.php?'
-        r = requests.get(url=url, params=self.queryData, headers=headers)
-        pattern = r'Accepted'
-        flag = len(re.findall(pattern, r.text))
-        if flag >= 2:
-            return True
-        else:
-            return False
+        try:
+            r = requests.get(url=url, params=self.queryData, headers=headers)
+            pattern = r'Accepted'
+            flag = len(re.findall(pattern, r.text))
+            if flag >= 2:
+                return True
+            else:
+                return False
+        except:
+            self.isAccepted()
 
-
-if __name__ == '__main__':
-    x = code(1001, 0, scode)
-    # x.submitCode()
-    # print(1)
-    if x.isAccepted() == 'AC':
-        print(1)
-    else:
-        print(0)
 
 
