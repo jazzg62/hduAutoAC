@@ -15,16 +15,18 @@ def schedule(pid):
             break
         else:
             x.submitCode()
-            time.sleep(45)
+            time.sleep(35)
     thread_lock.release()
 
 
 def main():
-    for i in range(1000, totalProblemN + 1):
+    print('Link start!!!!!!!!!!')
+    for i in range(5001, totalProblemN + 1):
         # schedule(i)
         thread_lock.acquire()  # 设置线程锁
         T = threading.Thread(target=schedule, args=(i,))
         T.start()
+        time.sleep(20)
 
 
 if __name__ == '__main__':

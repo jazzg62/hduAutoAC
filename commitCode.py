@@ -1,4 +1,5 @@
 import re
+
 import requests
 
 headers = {  # hdu用
@@ -18,7 +19,7 @@ class code:
     queryData = {
         'first': '',
         'pid': 1028,
-        'user': 'user',  # 改为用户名
+        'user': '',  # 改为用户名
         'lang': 1,
         'status': 5
     }
@@ -34,17 +35,19 @@ class code:
     def submitCode(self):
         url = 'http://acm.hdu.edu.cn/submit.php?action=submit'
         try:
-            r = requests.post(url=url, data=self.data, headers=headers)
-            print('submit code+1')
-            # print(r.text)
+            r = requests.post(url=url, data=self.data, headers=headers, timeout=5)
+            if r.status_code != 200:
+                print('submit code {}'.format(r.status_code))
+            print('submit code (hdu{})'.format(self.data['problemid']))
+            # print(r.text
             # print(r.status_code)
         except:
-            print('submit error!!!')
+            print("submit error!!! ")
 
     def isAccepted(self):
         url = 'http://acm.hdu.edu.cn/status.php?'
         try:
-            r = requests.get(url=url, params=self.queryData, headers=headers)
+            r = requests.get(url=url, params=self.queryData, headers=headers, timeout=5)
             pattern = r'Accepted'
             flag = len(re.findall(pattern, r.text))
             if flag >= 2:
@@ -52,7 +55,7 @@ class code:
             else:
                 return False
         except:
-            self.isAccepted()
+            return None
 
 
 

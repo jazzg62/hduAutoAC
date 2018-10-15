@@ -13,24 +13,25 @@ def getCode(pid):  # 给出一个题目的id，获取其中的代码
     # print(list)
     for i in list:
         code = parserCodePage(i)
+        if code == '':  # 如果未解析到c++代码时，则不返回值
+            continue
         yield code
 
 
 def getPageLink(url):  # 输入一个搜索结果url，返回结果前10文章的url 列表
     # print(url)
     try:
-        r = requests.get(url=url, headers=headers)
+        r = requests.get(url=url, headers=headers, timeout=5)
         pattern = r'<dd class="search-link"><a href="([\s\S]*?)"'
         return re.findall(pattern, r.text)
     except:
-        getPageLink(url)
+        print('parse bolg error')
 
 
 def parserCodePage(url):  # 给出一个博客文章的地址，返回该地址中的cpp代码段
     try:
-        r = requests.get(url, headers=headers)
+        r = requests.get(url, headers=headers, timeout=5)
         pattern = r'<code class="language-cpp">([\s\S]*?)</code>'
-
 
         buf = re.findall(pattern, r.text)[-1]
         buf = buf.replace('&lt;', '<')
@@ -38,10 +39,10 @@ def parserCodePage(url):  # 给出一个博客文章的地址，返回该地址�
         buf = buf.replace('&amp;', '&')
         if buf:
             return buf
+        else:
+            return ''
     except:
-        pass
-
-
+        return ''
 
 
 def main():
