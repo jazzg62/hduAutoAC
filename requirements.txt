@@ -16,6 +16,6 @@ multidict==4.4.2
 pyquery==1.4.0
 redis==2.10.6
 requests==2.19.1
-urllib3==1.23
+urllib3==1.24.2
 Werkzeug==0.15.3
 yarl==1.2.6
